@@ -9,14 +9,14 @@ class Tarefa {
     dataCriacao,
     dataLimite
   ) {
-    this._id;
-    this._idUsuarioCriador;
-    this._titulo;
-    this._descricao;
-    this._idUsuariosAtribuidos;
-    this._status;
-    this._dataCriacao;
-    this._dataLimite;
+    this._id = id;
+    this._idUsuarioCriador = idUsuarioCriador;
+    this._titulo = titulo;
+    this._descricao = descricao;
+    this._idUsuariosAtribuidos = idUsuariosAtribuidos;
+    this._status = status;
+    this._dataCriacao = dataCriacao;
+    this._dataLimite = dataLimite;
   }
 
   get id() {

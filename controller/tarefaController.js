@@ -28,6 +28,7 @@ class TarefaController {
     status,
     dataLimite
   ) {
+    console.log("Rodando adicionarTarefa");
     if (
       typeof idUsuarioCriador == undefined &&
       idUsuarioCriador == null &&
