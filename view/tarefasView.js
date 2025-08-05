@@ -23,20 +23,39 @@ function renderizarTarefas() {
   emAndamentoList.innerHTML = "";
   concluidoList.innerHTML = "";
 
-  const tarefas = tarefaController.listarTarefas();
+  var tarefas = tarefaController.listarTarefas();
 
   tarefas.forEach((tarefa) => {
     const taskElement = document.createElement("div");
+
+    taskElement.addEventListener("click", () => {
+        window.location.href = `./view/detalheTarefa.html?id=${tarefa.id}`
+        
+    })
+
     taskElement.classList.add("task");
     taskElement.innerHTML = `
+      <div class="div-row">
       <h4>${tarefa.titulo}</h4>
-      <p>${tarefa.descricao}</p>
-      <p>ID: ${tarefa.id}</p>
-      <span class="status-label">${
-        tarefa.status
-      ? tarefa.status.charAt(0).toUpperCase() + tarefa.status.slice(1)
-      : "Sem status"
-      }</span>
+      <div id="task-date">
+      <small>Criação:</small>
+      <small>${new Date(tarefa.dataCriacao).toLocaleDateString()}</small>
+      </div>
+      </div>
+      <p>${tarefa.descricao}</p>      
+      
+      <div class="div-row">
+        <span class="status-label">${
+          tarefa.status
+            ? tarefa.status.charAt(0).toUpperCase() + tarefa.status.slice(1)
+            : "Sem status"
+        }</span>
+
+        <div id="task-date">
+        <small>Limite:</small>
+        <small>${new Date(tarefa.dataLimite).toLocaleDateString()}</small>
+      </div>
+      </div>
     `;
 
     switch (tarefa.status) {
@@ -52,6 +71,7 @@ function renderizarTarefas() {
     }
   });
 }
+renderizarTarefas()
 
 taskForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -90,5 +110,8 @@ taskForm.addEventListener("submit", (event) => {
     alert("Erro ao renderizar tarefas: " + error.message);
   }
 });
+
+
+
 
 document.addEventListener("DOMContentLoaded", renderizarTarefas);

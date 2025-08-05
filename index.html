@@ -13,18 +13,17 @@
         <h1>NO! Awateru</h1>
       </div>
       <nav class="menu">
-        <a href="#">Tarefas</a>
+        <a href="../index.html">Tarefas</a>
         <a href="#">Perfil</a>
-        <a href="#">Sair</a>
       </nav>
     </header>
 
     <main class="main">
       <section class="form-section">
         <form method="post" id="task-form">
-          <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
-            <h2 style="margin-left: 25px">Nova Tarefa</h2>
-            <select style="margin-right: 45px" id="status" required>
+          <div class="div-row">
+            <h2>Nova Tarefa</h2>
+            <select id="status" required>
               <option value="pendente">Pendente</option>
               <option value="em-andamento">Em andamento</option>
               <option value="concluido">Concluído</option>
@@ -37,7 +36,6 @@
             required
           />
           <textarea id="descricao" placeholder="Descrição" required></textarea>
-          <textarea id="comentario" placeholder="Comentários"></textarea>
           <button type="submit">Adicionar Tarefa</button>
         </form>
       </section>
@@ -61,7 +59,6 @@
     <footer class="footer">
       <p>@2025 Todos os Direitos Reservados - Camilli | Matheus</p>
     </footer>
-
-    <script type="module" src="./view/main.js"></script>
   </body>
+  <script type="module" src="./view/tarefasView.js"></script>
 </html>

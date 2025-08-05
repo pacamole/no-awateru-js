@@ -1,17 +1,17 @@
 /* Paleta baseada nas cores fornecidas */
 :root {
-  --dark-purple: #1A1121;
-  --medium-purple: #6B3A87;
-  --accent-purple: #8451A0;
-  --light-purple: #B57ED1;
-  --highlight-purple: #CD95EA;
-  --text-light: #EAE3F1;
+  --dark-purple: #1a1121;
+  --medium-purple: #6b3a87;
+  --accent-purple: #8451a0;
+  --light-purple: #b57ed1;
+  --highlight-purple: #cd95ea;
+  --text-light: #eae3f1;
   --white: #fff;
 }
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--dark-purple);
   color: var(--text-light);
 }
@@ -69,7 +69,7 @@ body {
   background-color: var(--medium-purple);
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .form-section h2 {
@@ -111,6 +111,21 @@ body {
   background: var(--light-purple);
 }
 
+.div-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#task-form h2 {
+  margin-left: 25px;
+}
+
+#task-form select {
+  margin-right: 45px;
+}
+
 .kanban-board {
   display: flex;
   gap: 2rem;
@@ -123,7 +138,7 @@ body {
   background-color: #2c1c3f;
   border-radius: 12px;
   padding: 1rem;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 
 .kanban-column h3 {
@@ -142,7 +157,7 @@ body {
   background-color: #3d2852;
   padding: 1rem;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .task h4 {
@@ -152,6 +167,17 @@ body {
 
 .task p {
   margin: 0.3rem 0;
+}
+
+.task small {
+  color: grey;
+  font-size: 0.9rem;
+}
+
+.task #task-date {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
 }
 
 .task .status-label {
@@ -170,4 +196,41 @@ body {
   background-color: var(--medium-purple);
   color: var(--white);
   margin-top: 2rem;
+}
+
+.task-details {
+  display: flex;
+  background-color: var(--medium-purple);
+  margin: 40px;
+  padding: 20px;
+  border-radius: 12px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.task-details-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: var(--medium-purple);
+  border-radius: 12px;
+}
+
+.task-details-table td {
+  border: none;
+  vertical-align: middle;
+  width: 50%;
+  text-align: center;
+}
+
+.task-details-table td:first-child {
+  border-right: 4px solid #000;
+}
+
+#btn-comentario-historico {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  height: 64px;
 }

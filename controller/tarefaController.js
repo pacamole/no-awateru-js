@@ -1,17 +1,19 @@
 import Tarefa from "../module/tarefa.js";
 
 class TarefaController {
-  constructor(tarefas = []) {
-    this._tarefas = tarefas;
-  }
-
+  constructor() {
+      const tarefasSalvas = localStorage.getItem("tarefas");
+      this._tarefas = tarefasSalvas ? JSON.parse(tarefasSalvas) : [];
+      console.log("Construído e tarefas salvas")
+    }
+  
   gerarId() {
     let maiorId = 1;
     if (this._tarefas.length === 0) {
       return 1;
     }
 
-    this._tarefas.forEach((trf, _) => {
+    this._tarefas.forEach(trf => {
       if (trf.id > maiorId) {
         maiorId = trf.id;
       }
@@ -28,7 +30,6 @@ class TarefaController {
     status,
     dataLimite
   ) {
-    console.log("Rodando adicionarTarefa");
     if (
       typeof idUsuarioCriador == undefined &&
       idUsuarioCriador == null &&
@@ -67,14 +68,20 @@ class TarefaController {
       dataLimite
     );
     this._tarefas.push(tarefa);
+    localStorage.setItem("tarefas", JSON.stringify(this._tarefas));
   }
 
   listarTarefas() {
     return this._tarefas;
   }
 
+  buscarTarefa(id) {
+    this._tarefas.find((tarefa) => tarefa.id === id);
+  }
+
   removerTarefa(idTarefa) {
     this._tarefas = this._tarefas.filter((t) => t.id !== idTarefa);
+    localStorage.setItem("tarefas", JSON.stringify(this._tarefas));
   }
 }
 

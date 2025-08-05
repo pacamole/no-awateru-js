@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../assets/style.css" />
+    <title>Tarefa</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="logo">
+        <div class="avatar"></div>
+        <h1>NO! Awateru</h1>
+      </div>
+      <nav class="menu">
+        <a href="../index.html">Tarefas</a>
+        <a href="#">Perfil</a>
+      </nav>
+    </header>
+    <main class="main">
+      <table class="task-details-table">
+        <tr>
+          <td>
+            <section>
+              <h2 id="titulo">Título Tarefa</h2>
+              <p id="descricao">Descrição da tarefa.</p>
+              <div class="div-row">
+                <p>criado em: <span id="data-criacao">01/01/2025</span></p>
+                <input
+                  type="datetime-local"
+                  name="dataCriacao"
+                  id="dataCriacao"
+                  value="2025-01-01T12:00"
+                />
+              </div>
+              <h3>Responsáveis:</h3>
+              <ol id="lista-responsaveis">
+                <li>Responsável 1</li>
+                <li>Responsável 2</li>
+              </ol>
+              <div>
+                <input
+                  type="text"
+                  id="responsavel"
+                  placeholder="Adicionar responsável"
+                />
+                <button id="addResponsavel">Confirmar</button>
+              </div>
+              <div>
+                <select name="status" id="status">
+                  <option value="pendente">Pendente</option>
+                  <option value="em-andamento">Em Andamento</option>
+                  <option value="concluido">Concluído</option>
+                </select>
+                <button id="salvarStatus">Salvar</button>
+              </div>
+            </section>
+          </td>
+          <td>
+            <section>
+              <div id="btn-comentarios-historico">
+                <button id="btn-comentarios">Comentários</button>
+                <button id="btn-historico">Histórico</button>
+              </div>
+              <div id="comentario-historico">
+                <!-- Comentários e histórico da tarefa inseridos por JavaScript -->
+              </div>
+            </section>
+          </td>
+        </tr>
+      </table>
+    </main>
+    <script type="module" src="../view/detalheTarefa.js"></script>
+  </body>
+</html>
