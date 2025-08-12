@@ -1,19 +1,39 @@
 import Tarefa from "../module/tarefa.js";
 
 class TarefaController {
+  _storageName = "tarefas";
+
   constructor() {
-      const tarefasSalvas = localStorage.getItem("tarefas");
-      this._tarefas = tarefasSalvas ? JSON.parse(tarefasSalvas) : [];
-      console.log("Construído e tarefas salvas")
+    this._listaTarefas = this._carregarLocalStorage();
+  }
+
+  _carregarLocalStorage() {
+    try {
+      const dados = localStorage.getItem(this._storageName) || [];
+      const listaObj = JSON.parse(dados);
+
+      return listaObj.map((obj) => Object.assign(new Tarefa(), obj));
+    } catch (error) {
+      if (error instanceof SyntaxError) {
+        localStorage.setItem(this._storageName, []);
+        return [];
+      }
+      console.log("Erro ao carregar tarefas do localStorage: ", error);
+      return [];
     }
-  
-  gerarId() {
+  }
+
+  _salvarLocalStorage() {
+    localStorage.setItem(this._storageName, JSON.stringify(this._listaTarefas));
+  }
+
+  _gerarId() {
     let maiorId = 1;
-    if (this._tarefas.length === 0) {
+    if (this._listaTarefas.length === 0) {
       return 1;
     }
 
-    this._tarefas.forEach(trf => {
+    this._listaTarefas.forEach((trf) => {
       if (trf.id > maiorId) {
         maiorId = trf.id;
       }
@@ -22,66 +42,81 @@ class TarefaController {
     return maiorId + 1;
   }
 
-  adicionarTarefa(
-    idUsuarioCriador,
-    titulo,
-    descricao,
-    idUsuariosAtribuidos = [],
-    status,
-    dataLimite
-  ) {
+  adicionarTarefa(tarefa) {
     if (
-      typeof idUsuarioCriador == undefined &&
-      idUsuarioCriador == null &&
-      idUsuarioCriador == 0
+      typeof tarefa.idUsuario == undefined &&
+      tarefa.idUsuario == null &&
+      tarefa.idUsuario == 0
     ) {
       throw new Error("O id do usuario criador não pode ser nulo, ou zero.");
     }
 
-    if (titulo == undefined || titulo == null) {
+    if (tarefa.titulo == undefined || tarefa.titulo == null) {
       throw new Error("O título não pode ser nulo ou vazio.");
     }
 
-    if (titulo.length > 30) {
+    if (tarefa.titulo.length > 30) {
       throw new Error("O título deve ter no máximo 30 caracteres.");
     }
 
-    if (descricao.length > 300) {
+    if (tarefa.descricao.length > 300) {
       throw new Error("A descrição deve ter no máximo 300 caracteres.");
     }
 
-    let dataCriacao = Date.now();
-    if (dataCriacao > dataLimite) {
-      throw new Error(
-        "A data de criação não pode ser maior que a data limite."
-      );
+    if (tarefa.dataCriacao > tarefa.dataLimite) {
+      throw new Error("A data limite não pode ser menor que a data atual.");
     }
 
-    let tarefa = new Tarefa(
-      this.gerarId(),
-      idUsuarioCriador,
-      titulo,
-      descricao,
-      idUsuariosAtribuidos,
-      status,
-      dataCriacao,
-      dataLimite
-    );
-    this._tarefas.push(tarefa);
-    localStorage.setItem("tarefas", JSON.stringify(this._tarefas));
+    this._listaTarefas.push(tarefa);
+    this._salvarLocalStorage();
   }
 
   listarTarefas() {
-    return this._tarefas;
+    return this._listaTarefas;
   }
 
   buscarTarefa(id) {
-    this._tarefas.find((tarefa) => tarefa.id === id);
+    return this._listaTarefas.find((tarefa) => tarefa.id === id);
+  }
+
+  listarResponsaveis(idTarefa) {
+    return this._listaTarefas.find((tarefa) => {
+      if (tarefa.id === idTarefa) {
+        return tarefa.idResponsaveis;
+      }
+    });
+  }
+
+  editarTarefa(idTarefa, tarefaEditada) {
+    const index = this._listaTarefas.findIndex(
+      (tarefa) => tarefa.id === idTarefa
+    );
+
+    if (tarefaEditada.titulo == undefined || tarefaEditada.titulo == null) {
+      throw new Error("O título não pode ser nulo ou vazio.");
+    }
+
+    if (tarefaEditada.titulo.length > 30) {
+      throw new Error("O título deve ter no máximo 30 caracteres.");
+    }
+
+    if (tarefaEditada.descricao.length > 300) {
+      throw new Error("A descrição deve ter no máximo 300 caracteres.");
+    }
+
+    if (tarefaEditada.dataCriacao > tarefaEditada.dataLimite) {
+      throw new Error("A data limite não pode ser menor que a data atual.");
+    }
+
+    if (index) {
+      this._listaTarefas[index] = tarefaEditada;
+      this._salvarLocalStorage();
+    }
   }
 
   removerTarefa(idTarefa) {
-    this._tarefas = this._tarefas.filter((t) => t.id !== idTarefa);
-    localStorage.setItem("tarefas", JSON.stringify(this._tarefas));
+    this._listaTarefas = this._listaTarefas.filter((t) => t.id !== idTarefa);
+    this._salvarLocalStorage();
   }
 }
 

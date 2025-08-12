@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NO! Awateru - Gerenciador de Tarefas</title>
     <link rel="stylesheet" href="assets/style.css" />
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
   </head>
   <body>
     <header class="topbar">
@@ -18,9 +19,9 @@
       </nav>
     </header>
 
-    <main class="main">
+    <main class="main" id="main-displayer">
       <section class="form-section">
-        <form method="post" id="task-form">
+        <form id="task-form">
           <div class="div-row">
             <h2>Nova Tarefa</h2>
             <select id="status" required>

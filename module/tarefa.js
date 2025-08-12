@@ -1,30 +1,30 @@
 class Tarefa {
   constructor(
     id,
-    idUsuarioCriador,
+    idUsuario,
     titulo,
     descricao,
-    idUsuariosAtribuidos = [],
+    idResponsaveis = [],
     status,
     dataCriacao,
     dataLimite
   ) {
     this._id = id;
-    this._idUsuarioCriador = idUsuarioCriador;
+    this._idUsuario = idUsuario;
     this._titulo = titulo;
     this._descricao = descricao;
-    this._idUsuariosAtribuidos = idUsuariosAtribuidos;
+    this._idResponsaveis = idResponsaveis;
     this._status = status;
-    this._dataCriacao = dataCriacao;
-    this._dataLimite = dataLimite;
+    this._dataCriacao = new Date(dataCriacao);
+    this._dataLimite = new Date(dataLimite);
   }
 
   get id() {
     return this._id;
   }
 
-  get idUsuarioCriador() {
-    return this._idUsuarioCriador;
+  get idUsuario() {
+    return this._idUsuario;
   }
 
   get titulo() {
@@ -35,8 +35,8 @@ class Tarefa {
     return this._descricao;
   }
 
-  get usuariosAtribuidos() {
-    return this._usuariosAtribuidos;
+  get idResponsaveis() {
+    return this._idResponsaveis;
   }
 
   get status() {
@@ -55,8 +55,8 @@ class Tarefa {
     return (this._id = value);
   }
 
-  set idUsuarioCriador(value) {
-    return (this._idUsuarioCriador = value);
+  set idUsuario(value) {
+    return (this._idUsuario = value);
   }
 
   set titulo(value) {
@@ -67,8 +67,8 @@ class Tarefa {
     return (this._descricao = value);
   }
 
-  set usuariosAtribuidos(value) {
-    return (this._usuariosAtribuidos = value);
+  set idResponsaveis(value) {
+    return (this._idResponsaveis = value);
   }
 
   set status(value) {
@@ -84,4 +84,4 @@ class Tarefa {
   }
 }
 
-export default Tarefa
+export default Tarefa;
