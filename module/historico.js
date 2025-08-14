@@ -1,10 +1,10 @@
 class Historico {
-  constructor(id, idtarefa, idUsuario, msgAlteracao, dataCriacao) {
-    this._id;
-    this._idtarefaid;
-    this._idUsuarioid;
-    this._msgAlteracaoid;
-    this._dataCriacaoid;
+  constructor({ id, idtarefa, idUsuario, msgAlteracao, dataCriacao }) {
+    this._id = id;
+    this._idtarefa = idtarefa;
+    this._idUsuario = idUsuario;
+    this._msgAlteracao = msgAlteracao;
+    this._dataCriacao = dataCriacao;
   }
   get id() {
     return this._id;
@@ -28,10 +28,10 @@ class Historico {
   }
 
   get msgAlteracao() {
-    return this._msgAlteracaoid;
+    return this._msgAlteracao;
   }
   set msgAlteracao(value) {
-    this._msgAlteracaoid = value;
+    this._msgAlteracao = value;
   }
 
   get dataCriacao() {

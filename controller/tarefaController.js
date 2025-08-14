@@ -9,10 +9,21 @@ class TarefaController {
 
   _carregarLocalStorage() {
     try {
-      const dados = localStorage.getItem(this._storageName) || [];
+      const dados = localStorage.getItem(this._storageName);
       const listaObj = JSON.parse(dados);
 
-      return listaObj.map((obj) => Object.assign(new Tarefa(), obj));
+      return listaObj.map(
+        (obj) =>
+          new Tarefa({
+            id: obj._id,
+            idUsuario: obj._idUsuario,
+            titulo: obj._titulo,
+            descricao: obj._descricao,
+            status: obj._status,
+            dataCriacao: obj._dataCriacao,
+            dataLimite: obj._dataLimite,
+          })
+      );
     } catch (error) {
       if (error instanceof SyntaxError) {
         localStorage.setItem(this._storageName, []);
@@ -43,15 +54,11 @@ class TarefaController {
   }
 
   adicionarTarefa(tarefa) {
-    if (
-      typeof tarefa.idUsuario == undefined &&
-      tarefa.idUsuario == null &&
-      tarefa.idUsuario == 0
-    ) {
-      throw new Error("O id do usuario criador não pode ser nulo, ou zero.");
+    if (tarefa.idUsuario == null || tarefa.idUsuario === 0) {
+      throw new Error("O id do usuario criador não pode ser nulo ou zero.");
     }
 
-    if (tarefa.titulo == undefined || tarefa.titulo == null) {
+    if (!tarefa.titulo || tarefa.titulo.length === 0) {
       throw new Error("O título não pode ser nulo ou vazio.");
     }
 
@@ -67,6 +74,7 @@ class TarefaController {
       throw new Error("A data limite não pode ser menor que a data atual.");
     }
 
+    tarefa.id = this._gerarId();
     this._listaTarefas.push(tarefa);
     this._salvarLocalStorage();
   }
@@ -76,7 +84,11 @@ class TarefaController {
   }
 
   buscarTarefa(id) {
-    return this._listaTarefas.find((tarefa) => tarefa.id === id);
+    return this._listaTarefas.find((value) => {
+      if (value.id == id) {
+        return value;
+      }
+    });
   }
 
   listarResponsaveis(idTarefa) {

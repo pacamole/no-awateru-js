@@ -1,5 +1,5 @@
 class Tarefa {
-  constructor(
+  constructor({
     id,
     idUsuario,
     titulo,
@@ -7,8 +7,8 @@ class Tarefa {
     idResponsaveis = [],
     status,
     dataCriacao,
-    dataLimite
-  ) {
+    dataLimite,
+  }) {
     this._id = id;
     this._idUsuario = idUsuario;
     this._titulo = titulo;

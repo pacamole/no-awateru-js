@@ -1,5 +1,5 @@
 class Comentario {
-  constructor(id, idUsuario, idTarefa, comentario, dataCriacao) {
+  constructor({ id, idUsuario, idTarefa, comentario, dataCriacao }) {
     this._id = id;
     this._idUsuario = idUsuario;
     this._idTarefa = idTarefa;

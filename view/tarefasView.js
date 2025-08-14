@@ -2,8 +2,8 @@ import TarefaController from "../controller/tarefaController.js";
 import Tarefa from "../module/tarefa.js";
 
 class TarefasView {
-  constructor(tarefaController, pendenteList, emAndamentoList, concluidoList) {
-    this._tarefaController = tarefaController;
+  constructor(pendenteList, emAndamentoList, concluidoList) {
+    this._tarefaController = new TarefaController();
     this._pendenteList = pendenteList;
     this._emAndamentoList = emAndamentoList;
     this._concluidoList = concluidoList;
@@ -22,9 +22,11 @@ class TarefasView {
       tarefas.forEach((tarefa) => {
         const taskElement = document.createElement("div");
 
+        console.log("id tarefa: ", tarefa.id);
+
         // Direciona para Detalhes da Tarefa
         taskElement.addEventListener("click", () => {
-          window.location.href = `./view/detalheTarefaView.js?id=${tarefa.id}`;
+          window.location.href = `./view/detalheTarefaView.html?id=${tarefa.id}`;
         });
 
         taskElement.classList.add("task");
@@ -33,7 +35,7 @@ class TarefasView {
         <h4>${tarefa.titulo}</h4>
         <div id="task-date">
         <small>Criação:</small>
-        <small>${new Date(tarefa.dataCriacao).toLocaleDateString()}</small>
+        <small>${tarefa.dataCriacao.toLocaleDateString()}</small>
         </div>
         </div>
         <p>${tarefa.descricao}</p>      
@@ -47,7 +49,7 @@ class TarefasView {
   
           <div id="task-date">
           <small>Limite:</small>
-          <small>${new Date(tarefa.dataLimite).toLocaleDateString()}</small>
+          <small>${tarefa.dataLimite.toLocaleDateString()}</small>
         </div>
         </div>
       `;
@@ -81,14 +83,16 @@ class TarefasView {
     const status = statusSelect.value;
     const idUsuarioCriador = 1;
 
-    var tarefa = Object.assign(new Tarefa(), {
-      _idUsuario: idUsuarioCriador,
-      _titulo: titulo,
-      _descricao: descricao,
-      _status: status,
-      _dataCriacao: Date.now(),
-      _dataLimite: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    var tarefa = new Tarefa({
+      idUsuario: idUsuarioCriador,
+      titulo: titulo,
+      descricao: descricao,
+      status: status,
+      dataCriacao: Date.now(),
+      dataLimite: Date.now() + 7 * 24 * 60 * 60 * 1000,
     });
+
+    console.log("Tarefa criada: ", tarefa);
 
     try {
       this._tarefaController.adicionarTarefa(tarefa);
@@ -132,10 +136,7 @@ let concluidoList = document.querySelector(
   '.kanban-column[data-status="concluido"] .task-list'
 );
 
-const tarefaController = new TarefaController();
-
 const tarefasView = new TarefasView(
-  tarefaController,
   pendenteList,
   emAndamentoList,
   concluidoList
